@@ -133,3 +133,10 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': ['knox.auth.TokenAuthentication', ],
 }
+REST_KNOX = {
+    'SECURE_HASH_ALGORITHM': 'cryptography.hazmat.primitives.hashes.SHA512',
+    'AUTH_TOKEN_CHARACTER_LENGTH': 512,
+    'USER_SERIALIZER': 'contact.serializers.UserSerializer',
+    'TOKEN_LIMIT_PER_USER': 10,
+    'AUTO_REFRESH': True,
+}

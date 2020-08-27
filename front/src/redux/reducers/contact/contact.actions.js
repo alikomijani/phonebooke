@@ -23,3 +23,19 @@ export const setOffset = (offset) => ({
     type: types.SET_OFFSET,
     payload: offset
 })
+
+export const createContactStart = () => ({
+    type: types.CREATE_CONTACTS_START
+})
+
+export const createContactSuccess = (data) => {
+    return {
+        type: types.CREATE_CONTACTS_SUCCESS,
+        payload: data
+    }
+}
+
+export const createContactError = (error) => ({
+    type: types.CREATE_CONTACTS_ERROR,
+    payload: error
+})

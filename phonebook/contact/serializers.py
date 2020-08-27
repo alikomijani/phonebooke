@@ -47,6 +47,7 @@ class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
         fields = '__all__'
+        read_only_fields = ('owner',)
 
     def create(self, validated_data):
         address = validated_data.pop('address')
@@ -55,7 +56,7 @@ class ContactSerializer(serializers.ModelSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    profile_name = serializers.CharField()
+    username = serializers.CharField()
     password2 = serializers.CharField()
 
     class Meta:

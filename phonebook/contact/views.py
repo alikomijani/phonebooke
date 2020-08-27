@@ -6,6 +6,7 @@ from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from knox.models import AuthToken
 from rest_framework import generics, viewsets
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from knox.views import LoginView as KnoxLoginView
 from .models import Contact
@@ -42,7 +43,15 @@ class RegisterAPIView(generics.GenericAPIView):
 
 class ContactViewSet(viewsets.ModelViewSet):
     queryset = Contact.objects.all()
+    permission_classes = [IsAuthenticated]
     serializer_class = ContactSerializer
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = ['is_favorite', ]
     search_fields = ['first_name', 'last_name', 'mobile', 'email']
+
+    def get_queryset(self):
+        queryset = Contact.objects.filter(owner=self.request.user)
+        return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)

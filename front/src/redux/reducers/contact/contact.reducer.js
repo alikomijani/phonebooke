@@ -49,6 +49,25 @@ const contactReducer = (state = initial_state, { type, payload }) => {
                 pending: false,
                 error: payload.error,
             }
+            case (types.CREATE_CONTACTS_START):
+                return {
+                    ...state,
+                    pending: true,
+                    error: null,
+                }
+            case (types.CREATE_CONTACTS_SUCCESS):
+                return {
+                    ...state,
+                    pending: false,
+                    results: [...state.results , payload],
+                    count: state.count +1,
+                }
+            case (types.CREATE_CONTACTS_ERROR):
+                return {
+                    ...state,
+                    pending: false,
+                    error: payload,
+                }
         default:
             return state
     }
